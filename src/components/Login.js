@@ -21,8 +21,6 @@ export default class Login extends Component {
     }
 
     login(){
-        
-        
         fetch(url.BASE_URL + url.LOGIN_URL, {
             method: "POST",
             body: JSON.stringify(this.user),
@@ -30,7 +28,18 @@ export default class Login extends Component {
         })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            if(data.code===0){
+                this.setState({loginSuccess: false})
+            }else{
+                localStorage.setItem("authToken", data.token)
+
+                if(data.userInfo.role==="customer"){
+                    this.props.history.replace("/index")
+
+                }else if( data.userInfo.role==="admin" ){
+                    this.props.history.replace("/dashboard")
+                }
+            }
             
         })
         .catch(err=>console.log(err))
