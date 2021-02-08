@@ -32,6 +32,8 @@ export default class Login extends Component {
                 this.setState({loginSuccess: false})
             }else{
                 localStorage.setItem("authToken", data.token)
+                localStorage.setItem("authRole", data.userInfo.role)
+                localStorage.setItem("authStatus", true)
 
                 if(data.userInfo.role==="customer"){
                     this.props.history.replace("/index")
