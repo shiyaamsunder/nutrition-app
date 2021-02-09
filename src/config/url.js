@@ -3,6 +3,7 @@ const url = {
 	REGISTRATION_URL: "user/register",
 	LOGIN_URL: "user/login",
 	ACTIVITY_URL: "activity/",
+	FOOD_URL: "food/",
 };
 
 export default url;

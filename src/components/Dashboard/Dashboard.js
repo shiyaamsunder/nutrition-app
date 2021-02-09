@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
 import Activities from "./Activities";
+import Foods from "./Foods";
 
 export default class Dashboard extends Component {
 	logout() {
@@ -29,30 +31,38 @@ export default class Dashboard extends Component {
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
 							<li className="nav-item active">
-								<a className="nav-link" href="/dashboard">
+								<Link className="nav-link" to="/dashboard/activities">
 									Activities <span className="sr-only">(current)</span>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/food">
+								<Link className="nav-link" to="/dashboard/foods">
 									Food items
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/users">
+								<Link className="nav-link" to="dashboard/users">
 									Users
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a onClick={() => this.logout()} className="nav-link" href="#">
+								<Link
+									onClick={() => this.logout()}
+									className="nav-link"
+									to="/login"
+								>
 									Logout
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
 				</nav>
 
-				<Activities />
+				<Switch>
+					<Route path="/dashboard" exact component={Activities} />
+					<Route path="/dashboard/activities" component={Activities} />
+					<Route path="/dashboard/foods" component={Foods} />
+				</Switch>
 			</div>
 		);
 	}

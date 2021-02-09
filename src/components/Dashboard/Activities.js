@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import url from "../config/url";
+import url from "../../config/url";
 
 export default class Activities extends Component {
 	constructor(props) {
@@ -20,6 +20,22 @@ export default class Activities extends Component {
 				this.setState({ activities: data });
 			})
 			.catch((err) => console.log(err));
+	};
+
+	delete = (id, index) => {
+		fetch(url.BASE_URL + url.ACTIVITY_URL + `delete/${id}`, {
+			method: "DELETE",
+			headers: { Authorization: `Bearer ${this.token}` },
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				if (data.code === 1) {
+					let activities = this.state.activities;
+					activities.splice(index, 1);
+					this.setState({ activities: activities });
+				}
+			});
 	};
 	render() {
 		return (
@@ -43,7 +59,12 @@ export default class Activities extends Component {
 									<td>{activity.met}</td>
 									<td className="d-flex align-items-center justify-content-around">
 										<button className="btn btn-success">Update</button>
-										<button className="btn btn-danger">Delete</button>
+										<button
+											className="btn btn-danger"
+											onClick={() => this.delete(activity._id, index)}
+										>
+											Delete
+										</button>
 									</td>
 								</tr>
 							);
