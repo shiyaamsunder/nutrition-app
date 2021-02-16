@@ -1,9 +1,11 @@
 import { Grid, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import url from "../../config/url";
+import url from "../../../config/url";
 import Food from "./Food";
 import FoodCard from "./FoodCard";
 import StatCard from "./StatCard";
+
+import { v4 as uuid } from "uuid";
 
 class Today extends Component {
 	constructor(props) {
@@ -11,6 +13,15 @@ class Today extends Component {
 
 		this.state = {
 			userFoods: [],
+			total: {
+				calories: 0,
+				carbs: 0,
+				protien: 0,
+				fat: 0,
+				fiber: 0,
+				weight: 0,
+				unit: "g",
+			},
 		};
 		this.token = localStorage.getItem("authToken");
 	}
@@ -56,13 +67,42 @@ class Today extends Component {
 				});
 
 				this.setState({ userFoods: tempFoods });
+				this.calculateTotal();
 			})
 			.catch((err) => console.log(err));
+	};
+
+	handleChange = (nextState) => {
+		this.setState({ userFoods: nextState });
+	};
+
+	calculateTotal = () => {
+		let total = {
+			calories: 0,
+			carbs: 0.0,
+			protien: 0,
+			fat: 0,
+			fiber: 0,
+			weight: 0,
+			unit: "g",
+		};
+
+		this.state.userFoods.map((userfood) => {
+			total.protien += Number(userfood.food.protien);
+			total.carbs += Number(userfood.food.carbs);
+			total.fat += Number(userfood.food.fat);
+			total.fiber += Number(userfood.food.fiber);
+			total.calories += Number(userfood.food.calories);
+
+			console.log(Number(userfood.food.carbs));
+		});
+		this.setState({ total: total });
 	};
 
 	render() {
 		return (
 			<>
+				{console.log(this.state.userFoods)}
 				<Typography variant="h4">Today's Stat</Typography>
 				<Grid
 					alignItems="flex-start"
@@ -72,16 +112,20 @@ class Today extends Component {
 					container
 				>
 					<Grid item md={5} sm={12}>
-						<StatCard />
+						<StatCard total_values={this.state.total} />
 					</Grid>
 					<Grid item md={7} sm={12}>
-						<Food />
+						<Food
+							handleChange={this.handleChange}
+							userFoods={this.state.userFoods}
+							calculateTotal={this.calculateTotal}
+						/>
 					</Grid>
 				</Grid>
-				<Grid container alignItems="center" justify="space-evenly" spacing={3}>
+				<Grid container alignItems="center" justify="flex-start" spacing={3}>
 					{this.state.userFoods.map((userfood) => {
 						return (
-							<Grid item md={4} sm={6} key={userfood.food._id}>
+							<Grid item md={4} sm={6} key={uuid()}>
 								<FoodCard food={userfood.food} userWeight={userfood.weight} />
 							</Grid>
 						);

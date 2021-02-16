@@ -2,8 +2,8 @@ import { Container } from "@material-ui/core";
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "../UI/NavBar";
-import Activity from "./Activity";
-import Today from "./Today";
+import Activity from "./Activity/Activity";
+import Today from "./Food/Today";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({

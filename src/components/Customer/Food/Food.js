@@ -12,7 +12,7 @@ import {
 	ListItemText,
 	TextField,
 } from "@material-ui/core";
-import url from "../../config/url";
+import url from "../../../config/url";
 import FoodCard from "./FoodCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Food() {
+export default function Food({ handleChange, userFoods, calculateTotal }) {
 	const classes = useStyles();
 	const [foods, setFoods] = useState([]);
 	const [amount, setAmount] = useState("");
@@ -145,8 +145,12 @@ export default function Food() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
+				userFood.food = currentFood;
+				let tempArray = userFoods;
+				tempArray.push(userFood);
+				handleChange(tempArray);
 				setButtonDisabled(true);
+				calculateTotal();
 				setAmount("");
 			})
 			.catch((err) => console.log(err));

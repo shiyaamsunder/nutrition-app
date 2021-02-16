@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function StatCard() {
+export default function StatCard(props) {
 	const classes = useStyles();
+	const { calories, fat, fiber, protien, carbs, weight } = props.total_values;
 
 	return (
 		<Card className={classes.root}>
@@ -40,7 +41,7 @@ export default function StatCard() {
 					justify="center"
 				>
 					<Typography color="textSecondary" variant="h1">
-						0
+						{calories.toFixed(2)}
 					</Typography>
 
 					<Typography color="textSecondary" variant="h6">
@@ -52,28 +53,28 @@ export default function StatCard() {
 				<Grid item>
 					<List component="h5">
 						<ListItem button>
-							<Typography>Total Protien: 20g</Typography>
+							<Typography>Total Protien: {protien.toFixed(2)}g</Typography>
 						</ListItem>
 					</List>
 				</Grid>
 				<Grid item>
 					<List component="h5">
 						<ListItem button>
-							<Typography>Total Fat: 30g</Typography>
+							<Typography>Total Fat: {fat.toFixed(2)}g</Typography>
 						</ListItem>
 					</List>
 				</Grid>
 				<Grid item>
 					<List component="h5">
 						<ListItem button>
-							<Typography>Total Carbs: 100g</Typography>
+							<Typography>Total Carbs: {carbs.toFixed(2)}g</Typography>
 						</ListItem>
 					</List>
 				</Grid>
 				<Grid item>
 					<List component="h5">
 						<ListItem button>
-							<Typography>Total Fiber: 12g</Typography>
+							<Typography>Total Fiber: {fiber.toFixed(2)}g</Typography>
 						</ListItem>
 					</List>
 				</Grid>
