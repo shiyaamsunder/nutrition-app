@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import url from "../../config/url";
 
 export default class AddFood extends Component {
@@ -54,6 +55,12 @@ export default class AddFood extends Component {
 			<div style={{ marginTop: "1rem" }}>
 				<div className="row p-3 mt-2 mb-2">
 					<h3 className="mb-3">Add Food</h3>
+					<Link
+						to="/dashboard/foods"
+						className="btn btn-primary ml-auto col-md-2 d-flex align-items-center justify-content-center"
+					>
+						View Foods
+					</Link>
 				</div>
 				<div className="container w-75">
 					{this.state.foodAdded ? (

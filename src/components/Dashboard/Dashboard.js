@@ -3,15 +3,22 @@ import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
 import Activities from "./Activities";
 import AddActivity from "./AddActivity";
 import AddFood from "./AddFood";
+import AddUser from "./AddUser";
 import Foods from "./Foods";
+import Users from "./Users";
 
 export default class Dashboard extends Component {
 	logout() {
 		localStorage.removeItem("authStatus");
 		localStorage.removeItem("authRole");
 		localStorage.removeItem("authToken");
+		localStorage.removeItem("user_id");
 		this.props.history.replace("/login");
 	}
+
+	handleActive = (event) => {
+		console.log(event.target.parentElement.parentElement.children);
+	};
 	render() {
 		return (
 			<div className="container" style={{ marginTop: "1rem" }}>
@@ -32,7 +39,10 @@ export default class Dashboard extends Component {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
-							<li className="nav-item active">
+							<li
+								className="nav-item active"
+								onClick={() => this.handleActive(event)}
+							>
 								<Link className="nav-link" to="/dashboard/activities">
 									Activities
 								</Link>
@@ -43,7 +53,7 @@ export default class Dashboard extends Component {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link" to="dashboard/users">
+								<Link className="nav-link" to="/dashboard/users">
 									Users
 								</Link>
 							</li>
@@ -64,8 +74,10 @@ export default class Dashboard extends Component {
 					<Route path="/dashboard" exact component={Activities} />
 					<Route path="/dashboard/activities" exact component={Activities} />
 					<Route path="/dashboard/foods" exact component={Foods} />
+					<Route path="/dashboard/users" exact component={Users} />
 					<Route path="/dashboard/activities/add" component={AddActivity} />
 					<Route path="/dashboard/foods/add" component={AddFood} />
+					<Route path="/dashboard/users/add" component={AddUser} />
 				</Switch>
 			</div>
 		);

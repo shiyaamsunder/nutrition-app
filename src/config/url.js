@@ -4,6 +4,7 @@ const url = {
 	LOGIN_URL: "user/login",
 	ACTIVITY_URL: "activity/",
 	FOOD_URL: "food/",
+	USER_URL: "user/",
 };
 
 export default url;

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Index from "./components/Index";
+import Index from "./components/Customer/Index";
 import RouteGuard from "./components/RouteGuard";
 
 function App() {
@@ -12,12 +12,12 @@ function App() {
 			<Router>
 				<Switch>
 					<Route exact path="/" component={Login} />
-					<Route exact path="/login" component={Login} />
-					<Route exact path="/register" component={Register} />
+					<Route path="/login" component={Login} />
+					<Route path="/register" component={Register} />
 
 					{/* after login routes */}
 					<RouteGuard path="/dashboard" component={Dashboard} />
-					<RouteGuard exact path="/index" component={Index} />
+					<RouteGuard path="/index" component={Index} />
 				</Switch>
 			</Router>
 		</div>

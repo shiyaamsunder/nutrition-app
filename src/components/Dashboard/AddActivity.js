@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import url from "../../config/url";
 
 export default class AddActivity extends Component {
@@ -49,6 +50,12 @@ export default class AddActivity extends Component {
 			<div style={{ marginTop: "1rem" }}>
 				<div className="row p-3 mt-2 mb-2">
 					<h3 className="mb-3">Add Activity</h3>
+					<Link
+						to="/dashboard/activities"
+						className="btn btn-primary ml-auto col-md-2 d-flex align-items-center justify-content-center"
+					>
+						Add Food
+					</Link>
 				</div>
 				<div className="container w-75">
 					{this.state.activityAdded ? (
